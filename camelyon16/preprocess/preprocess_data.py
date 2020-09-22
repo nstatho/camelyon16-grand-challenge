@@ -4,22 +4,47 @@ import glob
 import os
 import numpy as np
 import cv2
+import os.path
 
 # modify below directory entries as per your local file system
-TRAIN_TUMOR_WSI_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                'TrainingData/Train_Tumor'
-TRAIN_NORMAL_WSI_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                 'TrainingData/Train_Normal'
-TRAIN_TUMOR_MASK_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/TrainingData/' \
-                                 'Ground_Truth/Mask'
-PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                         'Processed/patch-based-classification/normal-label-0/'
-PROCESSED_PATCHES_TUMOR_NEGATIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                         'Processed/patch-based-classification/tumor-label-0/'
-PROCESSED_PATCHES_POSITIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                        'Processed/patch-based-classification/label-1/'
-PROCESSED_PATCHES_FROM_USE_MASK_POSITIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
-                                        'Processed/patch-based-classification/use-mask-label-1/'
+# TRAIN_TUMOR_WSI_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                 'TrainingData/Train_Tumor'
+# TRAIN_NORMAL_WSI_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                  'TrainingData/Train_Normal'
+# TRAIN_TUMOR_MASK_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/TrainingData/' \
+#                                  'Ground_Truth/Mask'
+# PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                          'Processed/patch-based-classification/normal-label-0/'
+# PROCESSED_PATCHES_TUMOR_NEGATIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                          'Processed/patch-based-classification/tumor-label-0/'
+# PROCESSED_PATCHES_POSITIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                         'Processed/patch-based-classification/label-1/'
+# PROCESSED_PATCHES_FROM_USE_MASK_POSITIVE_PATH = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/' \
+#                                         'Processed/patch-based-classification/use-mask-label-1/'
+
+
+# TRAIN_TUMOR_WSI_PATH = '/media/bulk_storage/camelyon16/TrainingData/Train_Tumor'
+# TRAIN_NORMAL_WSI_PATH = '/media/bulk_storage/camelyon16/TrainingData/Train_Normal'
+# TRAIN_TUMOR_MASK_PATH = '/media/bulk_storage/camelyon16/TrainingData/Ground_Truth/Mask'
+# PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/normal-label-0/'
+# PROCESSED_PATCHES_TUMOR_NEGATIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/tumor-label-0/'
+# PROCESSED_PATCHES_POSITIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/label-1/'
+# PROCESSED_PATCHES_FROM_USE_MASK_POSITIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/use-mask-label-1/'
+
+
+ROOT_DATA = '/mnt/S/Research/Grand\ Challenges/CAMELYON16/' 
+
+
+
+TRAIN_TUMOR_WSI_PATH = ROOT_DATA + 'training/tumor'
+TRAIN_NORMAL_WSI_PATH = ROOT_DATA + 'training/normal'
+TRAIN_TUMOR_MASK_PATH = ROOT_DATA + 'training/lesion_annotations'
+PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/normal-label-0/'
+PROCESSED_PATCHES_TUMOR_NEGATIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/tumor-label-0/'
+PROCESSED_PATCHES_POSITIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/label-1/'
+PROCESSED_PATCHES_FROM_USE_MASK_POSITIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/use-mask-label-1/'
+
+
 PATCH_SIZE = 256
 PATCH_NORMAL_PREFIX = 'normal_'
 PATCH_TUMOR_PREFIX = 'tumor_'
@@ -446,7 +471,7 @@ def run_on_normal_data():
 
 if __name__ == '__main__':
     wsi = WSI()
-    # run_on_tumor_data()
-    # run_on_normal_data()
+    run_on_tumor_data()
+    run_on_normal_data()
     run_on_mask_data()
 
