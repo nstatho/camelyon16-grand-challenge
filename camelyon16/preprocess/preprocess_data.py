@@ -119,6 +119,7 @@ class WSI(object):
         mag_factor = pow(2, self.level_used)
 
         print('No. of ROIs to extract patches from: %d' % len(bounding_boxes))
+        print('Slide: {}'.format(self.wsi_image))
 
         for i, bounding_box in enumerate(bounding_boxes):
             b_x_start = int(bounding_box[0]) * mag_factor
