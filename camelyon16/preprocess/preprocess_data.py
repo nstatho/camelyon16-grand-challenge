@@ -32,7 +32,7 @@ import os.path
 # PROCESSED_PATCHES_FROM_USE_MASK_POSITIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/use-mask-label-1/'
 
 
-ROOT_DATA = '/mnt/S/Research/Grand\ Challenges/CAMELYON16/' 
+ROOT_DATA = r'/mnt/S/Research/Grand Challenges/CAMELYON16/' 
 
 
 
