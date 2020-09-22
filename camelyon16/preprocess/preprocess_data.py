@@ -36,7 +36,7 @@ ROOT_DATA = r'/mnt/S/Research/Grand Challenges/CAMELYON16/'
 
 
 
-TRAIN_TUMOR_WSI_PATH = ROOT_DATA + 'training/tumor'
+TRAIN_TUMOR_WSI_PATH =  ROOT_DATA + 'training/tumor'
 TRAIN_NORMAL_WSI_PATH = ROOT_DATA + 'training/normal'
 TRAIN_TUMOR_MASK_PATH = ROOT_DATA + 'training/lesion_annotations'
 PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH = '/media/bulk_storage/camelyon16/Processed/patch-based-classification/normal-label-0/'
@@ -132,27 +132,25 @@ class WSI(object):
             # Y = np.arange(b_y_start, b_y_end-256, 5)
 
             for x, y in zip(X, Y):
-                try:
-                    patch = self.wsi_image.read_region((x, y), 0, (PATCH_SIZE, PATCH_SIZE))
-                    patch_array = np.array(patch)
+                patch = self.wsi_image.read_region((x, y), 0, (PATCH_SIZE, PATCH_SIZE))
+                patch_array = np.array(patch)
 
-                    patch_hsv = cv2.cvtColor(patch_array, cv2.COLOR_BGR2HSV)
-                    # [20, 20, 20]
-                    lower_red = np.array([20, 20, 20])
-                    # [255, 255, 255]
-                    upper_red = np.array([200, 200, 200])
-                    mask = cv2.inRange(patch_hsv, lower_red, upper_red)
-                    white_pixel_cnt = cv2.countNonZero(mask)
+                patch_hsv = cv2.cvtColor(patch_array, cv2.COLOR_BGR2HSV)
+                # [20, 20, 20]
+                lower_red = np.array([20, 20, 20])
+                # [255, 255, 255]
+                upper_red = np.array([200, 200, 200])
+                mask = cv2.inRange(patch_hsv, lower_red, upper_red)
+                white_pixel_cnt = cv2.countNonZero(mask)
 
-                    if white_pixel_cnt > ((PATCH_SIZE * PATCH_SIZE) * 0.50):
-                        # mask = Image.fromarray(mask)
-                        patch.save(PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH + PATCH_NORMAL_PREFIX +
-                                str(self.negative_patch_index), 'PNG')
-                        # mask.save(PROCESSED_PATCHES_NORMAL_PATH + PATCH_NORMAL_PREFIX + str(self.patch_index),
-                        #           'PNG')
-                        self.negative_patch_index += 1
-                finally:
-                    pass
+                if white_pixel_cnt > ((PATCH_SIZE * PATCH_SIZE) * 0.50):
+                    # mask = Image.fromarray(mask)
+                    patch.save(PROCESSED_PATCHES_NORMAL_NEGATIVE_PATH + PATCH_NORMAL_PREFIX +
+                            str(self.negative_patch_index), 'PNG')
+                    # mask.save(PROCESSED_PATCHES_NORMAL_PATH + PATCH_NORMAL_PREFIX + str(self.patch_index),
+                    #           'PNG')
+                    self.negative_patch_index += 1
+
                 patch.close()
 
     def extract_patches_tumor(self, bounding_boxes):
@@ -380,7 +378,7 @@ class WSI(object):
         return True
 
 
-def run_on_mask_data():
+def run_on_mask_data(wsi):
     wsi.wsi_paths = glob.glob(os.path.join(TRAIN_TUMOR_WSI_PATH, '*.tif'))
     wsi.wsi_paths.sort()
     wsi.mask_paths = glob.glob(os.path.join(TRAIN_TUMOR_MASK_PATH, '*.tif'))
@@ -412,7 +410,7 @@ def run_on_mask_data():
     #                 ops.index = 0
 
 
-def run_on_tumor_data():
+def run_on_tumor_data(wsi):
     wsi.wsi_paths = glob.glob(os.path.join(TRAIN_TUMOR_WSI_PATH, '*.tif'))
     wsi.wsi_paths.sort()
     wsi.mask_paths = glob.glob(os.path.join(TRAIN_TUMOR_MASK_PATH, '*.tif'))
@@ -446,7 +444,7 @@ def run_on_tumor_data():
     #                 ops.index = 0
 
 
-def run_on_normal_data():
+def run_on_normal_data(wsi):
     wsi.wsi_paths = glob.glob(os.path.join(TRAIN_NORMAL_WSI_PATH, '*.tif'))
     wsi.wsi_paths.sort()
 
@@ -477,7 +475,8 @@ def run_on_normal_data():
 
 if __name__ == '__main__':
     wsi = WSI()
-    run_on_tumor_data()
-    run_on_normal_data()
-    run_on_mask_data()
+    run_on_mask_data(wsi)
+    run_on_tumor_data(wsi)
+    run_on_normal_data(wsi)
+    
 
