@@ -329,7 +329,8 @@ class WSI(object):
 
     @staticmethod
     def get_image_contours_mask(cont_img, mask_img):
-        _, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        #_, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         bounding_boxes = [cv2.boundingRect(c) for c in contours]
         contours_mask_image_array = np.array(mask_img)
         line_color = (255, 0, 0)  # blue color code
@@ -338,7 +339,8 @@ class WSI(object):
 
     @staticmethod
     def get_image_contours_normal(cont_img, rgb_image):
-        _, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        #_, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         bounding_boxes = [cv2.boundingRect(c) for c in contours]
         contours_rgb_image_array = np.array(rgb_image)
         line_color = (255, 0, 0)  # blue color code
@@ -347,7 +349,8 @@ class WSI(object):
 
     @staticmethod
     def get_image_contours_tumor(cont_img, rgb_image):
-        _, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # _, contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(cont_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         bounding_boxes = [cv2.boundingRect(c) for c in contours]
         contours_rgb_image_array = np.array(rgb_image)
 
