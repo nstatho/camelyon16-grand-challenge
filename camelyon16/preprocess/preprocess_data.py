@@ -151,10 +151,8 @@ class WSI(object):
                         # mask.save(PROCESSED_PATCHES_NORMAL_PATH + PATCH_NORMAL_PREFIX + str(self.patch_index),
                         #           'PNG')
                         self.negative_patch_index += 1
-                except er as error:
-                    print(er)
-
-
+                finally:
+                    pass
                 patch.close()
 
     def extract_patches_tumor(self, bounding_boxes):
