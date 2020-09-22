@@ -16,7 +16,7 @@ data_subset = ['train', 'train-aug', 'validation', 'validation-aug', 'heatmap']
 
 THESIS_FIGURE_DIR = '/home/millpc/Documents/Arjun/Study/Thesis/Defense/Me/figures/'
 
-DATA_DIR = '/home/millpc/Documents/Arjun/Study/Thesis/CAMELYON16/data/CAMELYON16/'
+DATA_DIR = '/mnt/S/Research/Grand\ Challenges/CAMELYON16/'
 
 TUMOR_WSI_PATH = DATA_DIR + 'TrainingData/Train_Tumor'
 NORMAL_WSI_PATH = DATA_DIR + 'TrainingData/Train_Normal'
